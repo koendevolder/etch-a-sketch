@@ -1,0 +1,17 @@
+body {
+    text-align: center;
+    margin: auto;
+}
+
+.container {
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 500px;
+    height: 500px;
+    border: 1px solid black;
+}
+
+.grid {
+    float: left;
+}
