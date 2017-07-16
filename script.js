@@ -1,16 +1,44 @@
 /* global $ */
 
 $(document).ready(function () {
-    var down = false;
-    
-    for (var i = 0; i < 4096; i++) {
-            $('.container').append('<div class="grid" style="width: 1.5625%; height: 1.5625%;"></div>');
+    gridCreate();
+	gridUpdate();
+	colorDiv();
+	clearCanvas();
+});
+
+var userInput = 64;
+
+function gridCreate() {
+    var gridSpacing = 100/userInput;
+
+    for (var i = 0; i < userInput * userInput; i++) {
+        $('.container').append('<div class="grid"></div>');
     }
     
-    $('#clearButton').click(function () {
-        $('.grid').css("background-color","white");
-    });
+	var elements = document.querySelectorAll('.grid');
+
+	for (var i = 0; i < elements.length; i++) {
+    	elements[i].style.width = gridSpacing + "%";
+    	elements[i].style.height = gridSpacing + "%";
+	}
+}
+
+function gridUpdate() {
+ 	$("#updateButton").click(function() {
+		userInput = $("#densityAdjuster").val();
     
+    	$("#container").empty();
+
+		gridCreate();
+		colorDiv();
+		clearCanvas();
+	});
+}
+
+function colorDiv() {
+    var down = false;
+
     $(document).mousedown(function() {
     	down = true;
 	}).mouseup(function() {
@@ -18,23 +46,18 @@ $(document).ready(function () {
 	});
 
 	$(".grid").mouseout(function() {
-    	if(down) {
+    	if (down) {
             $(this).css("background-color", "black");
     	} 
 	});
-});
+}
+
+function clearCanvas() {
+    $('#clearButton').click(function () {
+       $('.grid').css("background-color","white");
+    });
+}
 
 /*
-    $('#updateButton').click(function () {
-        var canvas = $('input[name=canvas]').val();
-        for (var i = 0; i < canvas; i++) {
-            $('.container').append('<div class="grid"></div>');
-        }
-    });
-    
-    $(document).on('click', '.grid', function() {
-        $(this).css("background-color", "black");
-    });
-    
 https://filipjovanovic.github.io/Etch-A-Sketch/
 */
